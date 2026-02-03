@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dla Natalki</title>
+    <title>Dla Natalki ❤️</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:italic,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap');
+
         body {
             margin: 0;
             padding: 0;
@@ -12,78 +14,143 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #050505;
+            /* Tło z liliami */
+            background: #000 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000') no-repeat center center;
+            background-size: cover;
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            text-align: center;
         }
+
+        /* Przyciemnienie tła, żeby napisy były czytelne */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
         .container {
+            position: relative;
             z-index: 2;
-            padding: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
         }
+
         h1 {
-            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin: 0;
             font-style: italic;
-            margin-bottom: 10px;
         }
-        p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+
+        .question {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
         }
+
         .highlight {
             color: #ff4d6d;
-            font-weight: bold;
+            font-weight: 600;
         }
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
+
         #yesBtn {
             background-color: #ff4d6d;
             border: none;
             color: white;
-            padding: 15px 40px;
-            font-size: 1.5rem;
+            padding: 15px 50px;
+            font-size: 1.8rem;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
+            margin-bottom: 20px;
         }
+
         #yesBtn:hover {
             transform: scale(1.1);
         }
+
         #noBtn {
-            background: transparent;
-            border: 1px solid #333;
-            color: #555;
-            padding: 8px 20px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid #555;
+            color: #ccc;
+            padding: 8px 25px;
+            border-radius: 15px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            z-index: 10;
+            transition: 0.1s;
         }
+
+        /* Styl napisu ALE JAK TO?! */
+        #shockMsg {
+            position: fixed;
+            background: #ff4d6d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+            z-index: 100;
+            pointer-events: none;
+            transform: translate(-50%, -150%);
+            white-space: nowrap;
+        }
+
+        .success-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ff4d6d;
+            border-radius: 30px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .success-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .success-card p {
+            font-size: 1.2rem;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        .fifus { color: #2ecc71; font-weight: bold; }
+
         .footer {
             position: absolute;
             bottom: 20px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: #444;
             width: 100%;
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: #555;
+            z-index: 2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+
+    <div id="shockMsg">ALE JAK TO?!</div>
+
+    <div class="container" id="mainContent">
         <h1>Natalko,</h1>
-        <p>Czy zostaniesz moją <span class="highlight">Walentynką?</span></p>
+        <p class="question">Czy zostaniesz moją <span class="highlight">Walentynką?</span></p>
         
-        <div class="btn-container">
-            <button id="yesBtn" onclick="celebrate()">TAK!</button>
-            <button id="noBtn" onmouseover="moveButton()">Nie...</button>
-        </div>
+        <button id="yesBtn" onclick="celebrate()">TAK!</button>
+        <br>
+        <button id="noBtn" onmouseover="moveButton()">Nie...</button>
     </div>
 
     <div class="footer">DLA NATALKI OD TWOJEGO WALENTEGO! (KUBUSIA)</div>
@@ -91,21 +158,37 @@
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.position = 'absolute';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            const msg = document.getElementById('shockMsg');
+            
+            // 1. Ustawienie dymku w miejscu, gdzie był przycisk
+            const rect = btn.getBoundingClientRect();
+            msg.style.left = (rect.left + rect.width / 2) + 'px';
+            msg.style.top = rect.top + 'px';
+            msg.style.display = 'block';
+
+            // 2. Ukrycie dymku po 0.6 sekundy
+            setTimeout(() => { msg.style.display = 'none'; }, 600);
+
+            // 3. Ucieczka przycisku
+            // Odejmujemy 50px marginesu, żeby nie uciekł za ekran
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+            
+            // Ustawiamy pozycję na 'fixed', żeby mógł swobodnie latać po ekranie
+            btn.style.position = 'fixed';
+            btn.style.left = Math.max(0, x) + 'px'; // Zabezpieczenie przed ujemną wartością
+            btn.style.top = Math.max(0, y) + 'px';
         }
 
         function celebrate() {
-            document.body.innerHTML = `
-                <div style="text-align:center;">
-                    <h1 style="color:#ff4d6d; font-size: 5rem;">❤️ ❤️ ❤️</h1>
-                    <h2 style="font-size: 2.5rem;">Wiedziałem! Do zobaczenia 14 lutego!</h2>
+            const container = document.getElementById('mainContent');
+            container.innerHTML = `
+                <div class="success-card">
+                    <h2>Wiedziałem! 🌷</h2>
+                    <p>Będziemy mieć najlepsze Walentynki. Ja, Ty i <span class="fifus">Fifuś</span> (w roli swatki).</p>
+                    <div style="font-size: 2rem; margin-top: 20px;">🌷 🌷 🌷</div>
                 </div>
             `;
-            // Tutaj w przyszłości możemy dodać skrypt zapisujący do Google Sheets
         }
     </script>
 </body>
