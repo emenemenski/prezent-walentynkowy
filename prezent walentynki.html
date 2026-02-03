@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla Natalki</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #050505;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            z-index: 2;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 4rem;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        .highlight {
+            color: #ff4d6d;
+            font-weight: bold;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        #yesBtn {
+            background-color: #ff4d6d;
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+        }
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+        #noBtn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #555;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #444;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Natalko,</h1>
+        <p>Czy zostaniesz moją <span class="highlight">Walentynką?</span></p>
+        
+        <div class="btn-container">
+            <button id="yesBtn" onclick="celebrate()">TAK!</button>
+            <button id="noBtn" onmouseover="moveButton()">Nie...</button>
+        </div>
+    </div>
+
+    <div class="footer">DLA NATALKI OD TWOJEGO WALENTEGO! (KUBUSIA)</div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            document.body.innerHTML = `
+                <div style="text-align:center;">
+                    <h1 style="color:#ff4d6d; font-size: 5rem;">❤️ ❤️ ❤️</h1>
+                    <h2 style="font-size: 2.5rem;">Wiedziałem! Do zobaczenia 14 lutego!</h2>
+                </div>
+            `;
+            // Tutaj w przyszłości możemy dodać skrypt zapisujący do Google Sheets
+        }
+    </script>
+</body>
+</html>
