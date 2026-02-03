@@ -14,8 +14,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* Tło z liliami */
-            background: #000 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000') no-repeat center center;
+            /* ZMIENIŁEM LINK PONIŻEJ NA LILIE: */
+            background: #000 url('https://images.unsplash.com/photo-1591951437146-24a9c687e38a?q=80&w=2000') no-repeat center center;
             background-size: cover;
             color: white;
             font-family: 'Poppins', sans-serif;
@@ -27,7 +27,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6); /* Zmniejszyłem trochę przyciemnienie, żeby lilie były wyraźniejsze */
             z-index: 1;
         }
 
@@ -44,11 +44,13 @@
             font-size: 5rem;
             margin: 0;
             font-style: italic;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .question {
             font-size: 1.8rem;
             margin-bottom: 40px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .highlight {
@@ -76,14 +78,15 @@
 
         #noBtn {
             background: rgba(255, 255, 255, 0.15);
-            border: 1px solid #555;
-            color: #ccc;
+            border: 1px solid #999;
+            color: #fff;
             padding: 8px 25px;
             border-radius: 15px;
             cursor: pointer;
             font-size: 1rem;
             z-index: 10;
             transition: 0.1s;
+            backdrop-filter: blur(2px);
         }
 
         /* Styl napisu ALE JAK TO?! */
@@ -99,15 +102,17 @@
             pointer-events: none;
             transform: translate(-50%, -150%);
             white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .success-card {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             border: 2px solid #ff4d6d;
             border-radius: 30px;
             padding: 40px;
             backdrop-filter: blur(10px);
             animation: fadeIn 0.8s ease-out;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
         .success-card h2 {
@@ -130,8 +135,9 @@
             text-align: center;
             font-size: 0.7rem;
             letter-spacing: 1px;
-            color: #555;
+            color: #bbb;
             z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         @keyframes fadeIn {
@@ -160,23 +166,21 @@
             const btn = document.getElementById('noBtn');
             const msg = document.getElementById('shockMsg');
             
-            // 1. Ustawienie dymku w miejscu, gdzie był przycisk
+            // 1. Ustawienie dymku
             const rect = btn.getBoundingClientRect();
             msg.style.left = (rect.left + rect.width / 2) + 'px';
             msg.style.top = rect.top + 'px';
             msg.style.display = 'block';
 
-            // 2. Ukrycie dymku po 0.6 sekundy
+            // 2. Ukrycie dymku
             setTimeout(() => { msg.style.display = 'none'; }, 600);
 
             // 3. Ucieczka przycisku
-            // Odejmujemy 50px marginesu, żeby nie uciekł za ekran
             const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
             
-            // Ustawiamy pozycję na 'fixed', żeby mógł swobodnie latać po ekranie
             btn.style.position = 'fixed';
-            btn.style.left = Math.max(0, x) + 'px'; // Zabezpieczenie przed ujemną wartością
+            btn.style.left = Math.max(0, x) + 'px';
             btn.style.top = Math.max(0, y) + 'px';
         }
 
